@@ -10,11 +10,10 @@ gen from to =
         from
 
 mystery :: Gen a => [a] -> [a]
-mystery xs@(x : _) = go x xs
+mystery (x : xr) = go (next x) xr
     where
-        go curr (x : xs)
-            | x == curr = go (next x) xs
-            | otherwise = gen curr x ++ go (next x) xs
+        go curr (y : ys)
+            = gen curr y ++ go (next y) ys
         go _ _ = []
 mystery [] = []
 
